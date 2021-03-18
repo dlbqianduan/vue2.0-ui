@@ -1,0 +1,19 @@
+@import "./init.less";
+//单选 radio
+.v-radio{
+  padding: 10px;
+  cursor: pointer;
+  &.disable{
+    cursor:not-allowed;
+  }
+  .v-radio_inner{
+    display: inline-block;
+    width:16px;
+    height:16px;
+    border-radius: 50%;
+    background-color: #111;
+  }
+  .v-radio_original{
+    opacity: 0;
+  }
+}
