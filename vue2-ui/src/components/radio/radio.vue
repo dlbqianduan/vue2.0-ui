@@ -19,11 +19,13 @@
         :value="label"
         v-model="model"
         :disabled="disabled"
+        :aria-disabled="disabled"
         @change="handleChange"
         type="radio"
       />
     </span>
     <span>
+      <template v-if="!$slots.default">{{label}}</template>
       <slot></slot>
     </span>
   </label>
@@ -48,15 +50,10 @@ export default {
         return this.value;
       },
       set(val) {
-        console.log(val);
         this.$emit("input", val);
-        // this.$refs.radio &&
-        //   (this.$refs.radio.checked = this.model === this.label);
       },
     },
   },
-
-  created() {},
   methods: {
     handleChange() {
       this.$nextTick(() => {
@@ -66,4 +63,3 @@ export default {
   },
 };
 </script>
-<style lang='less' scoped></style>
