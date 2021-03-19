@@ -4,27 +4,44 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div> -->
-    <v-radio v-model="radio">
-      <v-radio-item :disabled="true" :label="1">选项一</v-radio-item>
-      <v-radio-item :label="2">选项二</v-radio-item>
-    </v-radio>
+    <div class="flex">
+      <v-radio
+        v-for="(item, index) in relationArr"
+        :key="item"
+        v-model="radio"
+        :disabled="disabled"
+        :label="index"
+        >{{ item }}</v-radio
+      >
+    </div>
+
     <!-- <router-view /> -->
   </div>
 </template>
 <script>
-import VRadio from  "../src/components/radio/radio";
-import VRadioItem from  "../src/components/radio/radio-item";
+import VRadio from "../src/components/radio/radio";
 export default {
-  components:{
+  components: {
     VRadio,
-    VRadioItem
   },
-  data(){
+  data() {
     return {
-      radio:1,
-    }
+      radio: 1,
+      disabled: false,
+      relationArr: ["学生", "家长", "老师"],
+    };
   },
-}
+  created() {
+    setTimeout(() => {
+      console.log(this.radio);
+    }, 3000);
+  },
+  methods: {
+    radioChange(i) {
+      console.log(i);
+    },
+  },
+};
 </script>
 <style>
 #app {
@@ -34,6 +51,4 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-
-
 </style>

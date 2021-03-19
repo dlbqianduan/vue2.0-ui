@@ -1,29 +1,69 @@
 <template>
-  <div class="el-radio-group" role="radiogroup" @keydown="handleKeydown">
-    <slot></slot>
-  </div>
+  <label
+    class="v-radio flex"
+    :class="[{ disable: disabled }]"
+    :aria-disabled="disabled"
+  >
+    <span
+      class="v-radio_input flex"
+      :class="{
+        disable: disabled,
+        checked: model === label,
+      }"
+    >
+      <span class="v-radio_inner"></span>
+      <input
+        ref="radio"
+        class="v-radio_original"
+        :name="name"
+        :value="label"
+        v-model="model"
+        :disabled="disabled"
+        @change="handleChange"
+        type="radio"
+      />
+    </span>
+    <span>
+      <slot></slot>
+    </span>
+  </label>
 </template>
 <script>
 export default {
   data() {
-    return {
-      
-    }
+    return {};
+  },
+  props: {
+    value: {},
+    label: {},
+    name: String,
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    elTag() {
-      return (this.$vnode.data || {}).tag || 'div'
+    model: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        console.log(val);
+        this.$emit("input", val);
+        // this.$refs.radio &&
+        //   (this.$refs.radio.checked = this.model === this.label);
+      },
     },
   },
+
+  created() {},
   methods: {
-    handleKeydown() {
-      // 左右上下按键 可以在radio组内切换不同选项
+    handleChange() {
+      this.$nextTick(() => {
+        this.$emit("change", this.model);
+      });
     },
   },
-  created() {
-    console.log(this.$vnode, this.$vnode.tag);
-  },
-}
+};
 </script>
-<style lang="less" scoped>
-</style>
+<style lang='less' scoped></style>

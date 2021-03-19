@@ -5,18 +5,23 @@
    {disable:disabled}
   ]"
     :aria-disabled="disabled"
-    :tabindex="tabIndex"
   >
-   <span class="v-radio_input flex">
+   <span class="v-radio_input flex"
+   :class="{
+        disable: disabled,
+        checked: model === label
+      }"
+   >
      <span class="v-radio_inner">
 
      </span>
     <input
-      :class="[{disable:disabled}]"
+      ref="radio"
       class="v-radio_original"
       :name="name"
       v-model="model"
       :disabled="disabled"
+      @change="handleChange"
       aria-hidden="true"
       type="radio"
     />
@@ -33,6 +38,7 @@ export default {
     return {}
   },
   props: {
+    value:{},
     label: {},
     name: String,
     disabled: {
@@ -43,7 +49,7 @@ export default {
   computed: {
     model: {
       get() {
-        return this.isGroup ? this._radioGroup.value : this.value
+        return this.value;
       },
       set(val) {
         this.$emit('input', val)
@@ -54,7 +60,14 @@ export default {
   },
 
   created() {},
-  methods: {},
+  methods: {
+     handleChange() {
+        this.$nextTick(() => {
+          this.$emit('change', this.model);
+          console.log(1234455)
+        });
+      }
+  },
 }
 </script>
 <style lang='less' scoped></style>
