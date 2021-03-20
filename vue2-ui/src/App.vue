@@ -27,7 +27,23 @@
     <section>
       <h2>多选框 checkBox</h2>
       <div class="flex padding">
-        <v-check-box-group v-model="checkBoxArr" :max="4">
+        <v-check-box-group v-model="checkBoxArr1">
+          <v-check-box label="广州"></v-check-box>
+          <v-check-box label="上海"></v-check-box>
+          <v-check-box label="北京"></v-check-box>
+          <v-check-box label="深圳"></v-check-box>
+        </v-check-box-group>
+      </div>
+      <div class="flex padding">
+        <v-check-box-group startAll v-model="checkBoxArr2">
+          <v-check-box label="广州"></v-check-box>
+          <v-check-box label="上海"></v-check-box>
+          <v-check-box label="北京"></v-check-box>
+          <v-check-box label="深圳"></v-check-box>
+        </v-check-box-group>
+      </div>
+      <div class="flex padding">
+        <v-check-box-group startAll v-model="checkBoxArr3" :max="3">
           <v-check-box label="广州"></v-check-box>
           <v-check-box label="上海"></v-check-box>
           <v-check-box label="北京"></v-check-box>
@@ -39,31 +55,39 @@
   </div>
 </template>
 <script>
-import VRadio from '../src/components/radio/radio'
-import VCheckBoxGroup from '../src/components/checkBox/checkbox-group'
-import VCheckBox from '../src/components/checkBox/checkbox'
+import VRadio from "../src/components/radio/radio";
+import VCheckBoxGroup from "../src/components/checkBox/checkbox-group";
+import VCheckBox from "../src/components/checkBox/checkbox";
 export default {
   components: {
     VRadio,
     VCheckBox,
-    VCheckBoxGroup
+    VCheckBoxGroup,
   },
   data() {
     return {
       radio: 1,
       radio1: 1,
-      relationArr: ['学生啊', '家长啊', '老师啊'],
-      checkBoxArr: ['北京'],
-    }
+      relationArr: ["学生啊", "家长啊", "老师啊"],
+      checkBoxArr1: [],
+      checkBoxArr2: ["北京", "广州"],
+      checkBoxArr3: ["广州"],
+    };
+  },
+  watch: {
+    checkBoxArr1() {
+      console.log(this.checkBoxArr1);
+    },
   },
   created() {},
   methods: {
     radioChange(c) {
-      console.log(c)
-      alert(JSON.stringify(c))
+      console.log(c);
+      alert(JSON.stringify(c));
     },
+    bbb() {},
   },
-}
+};
 </script>
 <style lang="less" scoped>
 #app {
